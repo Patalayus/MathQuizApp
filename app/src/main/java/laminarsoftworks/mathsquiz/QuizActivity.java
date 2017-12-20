@@ -2,8 +2,10 @@ package laminarsoftworks.mathsquiz;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -23,5 +25,93 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        mScoreView = (TextView)findViewById(R.id.score);
+        mQuestionView = (TextView)findViewById(R.id.question);
+        mButtonChoice1 = (Button)findViewById(R.id.choice1);
+        mButtonChoice1 = (Button)findViewById(R.id.choice2);
+        mButtonChoice1 = (Button)findViewById(R.id.choice3);
+
+        updateQuestion();
+
+        //Start of button listener for Button1
+        mButtonChoice1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //my logic for the button will be in this method
+                if(mButtonChoice1.getText() == mAnswer){
+                    mScore = mScore + 1;
+                    updateScore(mScore);
+                    updateQuestion();
+                    //the following line of code is optional
+                    Toast.makeText(QuizActivity.this, "correct", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(QuizActivity.this, "incorrect", Toast.LENGTH_SHORT).show();
+                    updateQuestion();
+                }
+            }
+        });
+
+        //End of button listener for Button1
+
+        //Start of button listener for Button2
+        mButtonChoice2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //my logic for the button will be in this method
+                if(mButtonChoice2.getText() == mAnswer){
+                    mScore = mScore + 1;
+                    updateScore(mScore);
+                    updateQuestion();
+                    //the following line of code is optional
+                    Toast.makeText(QuizActivity.this, "correct", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(QuizActivity.this, "incorrect", Toast.LENGTH_SHORT).show();
+                    updateQuestion();
+                }
+            }
+        });
+
+        //End of button listener for Button2
+
+        //Start of button listener for Button3
+        mButtonChoice3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //my logic for the button will be in this method
+                if(mButtonChoice3.getText() == mAnswer){
+                    mScore = mScore + 1;
+                    updateScore(mScore);
+                    updateQuestion();
+                    //the following line of code is optional
+                    Toast.makeText(QuizActivity.this, "correct", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(QuizActivity.this, "incorrect", Toast.LENGTH_SHORT).show();
+                    updateQuestion();
+                }
+            }
+        });
+
+        //End of button listener for Button3
+
+
     }
+
+    private void updateQuestion(){
+        mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
+        mButtonChoice1.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
+        mButtonChoice2.setText(mQuestionLibrary.getChoice2(mQuestionNumber));
+        mButtonChoice3.setText(mQuestionLibrary.getChoice3(mQuestionNumber));
+
+        mAnswer = mQuestionLibrary.getCorrectAnswer(mQuestionNumber);
+        mQuestionNumber++;
+    }
+
+
+
+    private void updateScore(int point){
+        mScoreView.setText("" +mScore);
+    }
+
+
 }
